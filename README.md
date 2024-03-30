@@ -19,7 +19,7 @@ Responsive Design: The app is built with a responsive design, ensuring a consist
 User-Friendly Interface: Todo List Manager features an intuitive and user-friendly interface with smooth animations and transitions. Navigation within the app is straightforward, making it easy for users to perform tasks efficiently.
 
 
-<img src="image_1png"
+<img src="image_1.png"
      alt="Markdown Monster icon"
      height="500em" />
      
