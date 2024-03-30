@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class TodoPage extends StatefulWidget {
-  final String selectedFilter;
-
-  const TodoPage({Key? key, required this.selectedFilter}) : super(key: key);
+  const TodoPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TodoPage> createState() => _TodoPageState();
@@ -15,9 +15,20 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   List<dynamic> todoList = [];
+  List<dynamic> activeList = [];
+  List<dynamic> completeList = [];
   bool _isLoading = true;
 
   late List<bool> isCheckedList;
+  // Initial Selected Value
+  String dropdownvalue = 'Show All';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Show All',
+    'Show Active',
+    'Show Completed',
+  ];
 
   @override
   void initState() {
@@ -38,6 +49,11 @@ class _TodoPageState extends State<TodoPage> {
       if (response.statusCode == 200) {
         todoList = jsonDecode(response.body);
         isCheckedList = List<bool>.filled(todoList.length, false);
+        for (var completed in todoList) {
+          if (completed['completed'] == true) {
+            completeList.add(completed);
+          }
+        }
         setState(() {
           _isLoading = false;
         });
@@ -56,13 +72,56 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black87,
+      appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: Colors.grey.shade800,
+        title: const Text(
+          "Flutter Todos",
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          DropdownButtonHideUnderline(
+            child: DropdownButton(
+              elevation: 0,
+              dropdownColor: Colors.grey.shade800,
+              iconDisabledColor: Colors.white,
+              iconEnabledColor: Colors.white,
+              icon: const Icon(Icons.more_horiz_outlined,
+                  color: Colors.white, size: 26),
+              items: items.map((String item) {
+                bool isSelected = item == dropdownvalue;
+                return DropdownMenuItem(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: TextStyle(
+                      color: isSelected ? Colors.cyan : Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownvalue = newValue!;
+                });
+              },
+              value: dropdownvalue,
+            ),
+          ),
+        ],
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.separated(
               physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics()),
               shrinkWrap: true,
-              itemCount: todoList.length,
+              itemCount: items[0] == dropdownvalue
+                  ? todoList.length
+                  : items[1] == dropdownvalue
+                      ? activeList.length
+                      : completeList.length,
               separatorBuilder: (context, index) {
                 return const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -73,13 +132,21 @@ class _TodoPageState extends State<TodoPage> {
               },
               itemBuilder: (context, index) {
                 return Dismissible(
-                  key: Key(todoList[index]['id'].toString()),
+                  key: Key(items[0] == dropdownvalue
+                      ? todoList[index]['id'].toString()
+                      : items[1] == dropdownvalue
+                          ? activeList[index]['id'].toString()
+                          : completeList[index]['id'].toString()),
                   direction: DismissDirection.horizontal,
                   onDismissed: (direction) {
                     if (direction == DismissDirection.startToEnd ||
                         direction == DismissDirection.endToStart) {
                       setState(() {
-                        todoList.removeAt(index);
+                        items[0] == dropdownvalue
+                            ? todoList.removeAt(index)
+                            : items[1] == dropdownvalue
+                                ? activeList.removeAt(index)
+                                : completeList.removeAt(index);
                       });
                     }
                   },
@@ -101,15 +168,24 @@ class _TodoPageState extends State<TodoPage> {
                       onChanged: (value) {
                         setState(() {
                           isCheckedList[index] = value ?? false;
+                          activeList.add(todoList[index]);
                         });
                       },
                     ),
                     title: Text(
-                      todoList[index]['title'],
+                      items[0] == dropdownvalue
+                          ? todoList[index]['title']
+                          : items[1] == dropdownvalue
+                              ? activeList[index]["title"]
+                              : completeList[index]["title"],
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     subtitle: Text(
-                      "User Id: ${todoList[index]['userId']}",
+                      items[0] == dropdownvalue
+                          ? "User Id: ${todoList[index]['userId']}"
+                          : items[1] == dropdownvalue
+                              ? "User Id: ${activeList[index]['userId']}"
+                              : "User Id: ${completeList[index]['userId']}",
                       style: TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   ),

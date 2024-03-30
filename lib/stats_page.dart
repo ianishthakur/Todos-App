@@ -62,36 +62,46 @@ class _StatsPageState extends State<StatsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : SizedBox(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.cyan.shade50),
-                  child: Text(
-                    "Completed Todo : $completed",
-                    style: const TextStyle(color: Colors.black),
-                  ),
+    return Scaffold(
+        backgroundColor: Colors.black87,
+        appBar: AppBar(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.grey.shade800,
+          title: const Text(
+            "Flutter Todos",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        body: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.cyan.shade50),
+                      child: Text(
+                        "Completed Todo : $completed",
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.amber.shade50),
+                      child: Text(
+                        "In-Completed Todo : $incompleted",
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.amber.shade50),
-                  child: Text(
-                    "In-Completed Todo : $incompleted",
-                    style: const TextStyle(color: Colors.black),
-                  ),
-                ),
-              ],
-            ),
-          );
+              ));
   }
 }
