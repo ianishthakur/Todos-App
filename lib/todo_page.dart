@@ -16,7 +16,6 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   List<dynamic> todoList = [];
   bool _isLoading = true;
-  
 
   late List<bool> isCheckedList;
 
@@ -62,7 +61,6 @@ class _TodoPageState extends State<TodoPage> {
           : ListView.separated(
               physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics()),
-              // physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: todoList.length,
               separatorBuilder: (context, index) {
@@ -74,22 +72,46 @@ class _TodoPageState extends State<TodoPage> {
                 );
               },
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Checkbox(
-                    value: isCheckedList[index],
-                    onChanged: (value) {
+                return Dismissible(
+                  key: Key(todoList[index]['id'].toString()),
+                  direction: DismissDirection.horizontal,
+                  onDismissed: (direction) {
+                    if (direction == DismissDirection.startToEnd ||
+                        direction == DismissDirection.endToStart) {
                       setState(() {
-                        isCheckedList[index] = value ?? false;
+                        todoList.removeAt(index);
                       });
-                    },
+                    }
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Icon(Icons.delete, color: Colors.white),
                   ),
-                  title: Text(
-                    todoList[index]['title'],
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  secondaryBackground: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Icon(Icons.delete, color: Colors.white),
                   ),
-                  subtitle: Text(
-                    "User Id: ${todoList[index]['userId']}",
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                  child: ListTile(
+                    leading: Checkbox(
+                      value: isCheckedList[index],
+                      onChanged: (value) {
+                        setState(() {
+                          isCheckedList[index] = value ?? false;
+                        });
+                      },
+                    ),
+                    title: Text(
+                      todoList[index]['title'],
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      "User Id: ${todoList[index]['userId']}",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
                   ),
                 );
               },
