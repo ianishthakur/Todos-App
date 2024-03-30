@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 
 class TodoPage extends StatefulWidget {
   const TodoPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TodoPage> createState() => _TodoPageState();
@@ -20,10 +20,8 @@ class _TodoPageState extends State<TodoPage> {
   bool _isLoading = true;
 
   late List<bool> isCheckedList;
-  // Initial Selected Value
   String dropdownvalue = 'Show All';
 
-  // List of items in our dropdown menu
   var items = [
     'Show All',
     'Show Active',
@@ -153,14 +151,14 @@ class _TodoPageState extends State<TodoPage> {
                   background: Container(
                     color: Colors.red,
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Icon(Icons.delete, color: Colors.white),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: const Icon(Icons.delete, color: Colors.white),
                   ),
                   secondaryBackground: Container(
                     color: Colors.red,
                     alignment: Alignment.centerRight,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Icon(Icons.delete, color: Colors.white),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: const Icon(Icons.delete, color: Colors.white),
                   ),
                   child: ListTile(
                     leading: Checkbox(
@@ -178,7 +176,7 @@ class _TodoPageState extends State<TodoPage> {
                           : items[1] == dropdownvalue
                               ? activeList[index]["title"]
                               : completeList[index]["title"],
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     subtitle: Text(
                       items[0] == dropdownvalue
@@ -186,7 +184,7 @@ class _TodoPageState extends State<TodoPage> {
                           : items[1] == dropdownvalue
                               ? "User Id: ${activeList[index]['userId']}"
                               : "User Id: ${completeList[index]['userId']}",
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   ),
                 );

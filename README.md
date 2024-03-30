@@ -30,3 +30,7 @@ User-Friendly Interface: Todo List Manager features an intuitive and user-friend
 <img src="image_3.png"
      alt="Markdown Monster icon"
      height="500em" />
+
+<img src="image_4.png"
+     alt="Markdown Monster icon"
+     height="500em" />

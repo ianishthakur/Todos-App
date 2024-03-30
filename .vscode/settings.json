@@ -1,3 +1,58 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
-}
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off",
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "explicit",
+          "quickfix.add.required": "explicit",
+          "quickfix.add.required.multi": "explicit",
+          "quickfix.create.constructorForFinalFields": "explicit"
+      }
+    },
+    "bracket-pair-colorizer-2.depreciation-notice": false,
+    "explorer.confirmDelete": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "dart.showInspectorNotificationsForWidgetErrors": false,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Palenight (Mild Contrast)",
+    "dart.warnWhenEditingFilesOutsideWorkspace": false,
+    "terminal.integrated.fontSize": 15,
+    "terminal.integrated.fontFamily": "monospace",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.fontFamily": "Fire Code",
+    "editor.fontLigatures": true,
+    "launch": {
+  
+        "configurations": [],
+        "compounds": []
+    },
+    "editor.fontSize": 14,
+    "editor.accessibilitySupport": "off",
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "opengpt.apiKey": "CXQOVz4dxSs81Ngy",
+    // "window.zoomLevel": 0,
+    "files.autoSave": "afterDelay"
+  }

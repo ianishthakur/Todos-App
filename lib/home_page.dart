@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List _pages = [
-    const TodoPage(), // Initialize TodoPage with default filter value
+    const TodoPage(), 
     const StatsPage(),
   ];
   int _currentPage = 0;
